@@ -5,6 +5,7 @@ const statementSchema = new mongoose.Schema({
   amount: Number,
   reason: String,
   method: String,
+  notes: String,
 });
 
 export default mongoose.models.statements || mongoose.model("statements", statementSchema);
