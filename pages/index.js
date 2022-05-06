@@ -1,56 +1,37 @@
 import Link from "next/link";
-import dbConnect from "../lib/dbConnect";
-import StatementModel from "../models/statementModel";
+import { useState, useEffect } from "react";
 
 import { styled } from "@mui/material/styles";
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Button, Grid, Paper, Stack, Typography, InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
-const Item = styled(Box)(({ theme }) => ({
+import { useGlobalEvent } from "beautiful-react-hooks";
+
+const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   ...theme.typography.body2,
   padding: theme.spacing(1),
-  textAlign: "center",
   color: theme.palette.text.secondary,
-  border: `solid ${theme.palette.common.white}`,
   height: "100%",
+  display: "flex",
 }));
 
 const Index = ({ statements }) => {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container columns={7} height={700}>
-        {[...Array(31)].map((item, i) => (
-          <Grid key={i} item xs={1}>
-            <Item>{item}</Item>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+  const [windowHeight, setWindowHeight] = useState(0);
+  const onWindowResize = useGlobalEvent("resize");
 
-    // <>
-    //   {statements.map((statement) => (
-    //     <div key={statement._id}>
-    //       <div className="card">
-    //         <h5 className="pet-name">{statement.amount}</h5>
-    //         <div className="main-content">
-    //           <p className="pet-name">{statement.date}</p>
-    //           <p className="pet-name">{statement.reason}</p>
-    //           <p className="owner">Owner: {statement.method}</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ))}
-    // </>
+  onWindowResize(() => {
+    setWindowHeight(window.innerHeight);
+  });
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+  }, []);
+
+  return (
+    <Box sx={{ flexGrow: 1, padding: 1 }}>
+      <Link href="/calender">Calendar</Link>
+    </Box>
   );
 };
-
-export async function getServerSideProps() {
-  await dbConnect();
-
-  const result = await StatementModel.find({});
-  const statements = JSON.parse(JSON.stringify(result));
-
-  return { props: { statements: statements } };
-}
 
 export default Index;

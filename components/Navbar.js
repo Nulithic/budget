@@ -26,7 +26,7 @@ const Navbar = () => {
   return (
     <AppBar position="static" color="darkGrey">
       <Container maxWidth={false}>
-        <Toolbar disableGutters>
+        <Toolbar variant="dense" disableGutters>
           <Typography variant="h6" noWrap component="div" sx={{ mr: 2, display: { xs: "none", md: "flex" } }}>
             My Budget
           </Typography>
