@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   display: "flex",
 }));
 
-export default function Calendar({ yearAndMonth = [2021, 6], onYearAndMonthChange, renderDay = () => null }) {
+export default function Calendar({ yearAndMonth = [2021, 6], onYearAndMonthChange, renderDay = () => null, renderStats = () => null }) {
   const [windowHeight, setWindowHeight] = useState(0);
   const onWindowResize = useGlobalEvent("resize");
 
